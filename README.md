@@ -1,19 +1,16 @@
 # artificial-intelligence
 ## Make uniq comparation algorithm to make possible `recognition of spoken words`
+### Write as you speak and read as it is written.  — Vuk Stefanović Karadžić 
 
-Write as you speak and read as it is written.  — Vuk Stefanović Karadžić 
 
 Serbian language is perfect for computer science i will try to proof this fact in this project.
 Possible usage of Finnish and Sri Lanka.
-
 Possible programming language in this project :  c, c++, python, javascript.
 
 # BASIC
-
-There is a 30 symbols - there is 30 sound for reprasent
+There is a 30 symbols for representation of human 30 sounds.
 
 - Serbian AZBUKA
-
 Big
 А, Б, В, Г, Д, Ђ, Е, Ж, З, И, Ј, К, Л, Љ, М, Н, Њ, О, П, Р, С, Т, Ћ, У, Ф, Х, Ц, Ч, Џ, Ш
 
