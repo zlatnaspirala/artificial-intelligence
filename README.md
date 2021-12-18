@@ -11,17 +11,16 @@ Possible programming language in this project :  c, c++, python, javascript.
 There is a 30 symbols for representation of human 30 sounds.
 
 - Serbian AZBUKA
-Big
-А, Б, В, Г, Д, Ђ, Е, Ж, З, И, Ј, К, Л, Љ, М, Н, Њ, О, П, Р, С, Т, Ћ, У, Ф, Х, Ц, Ч, Џ, Ш
+  Big letters
+  А, Б, В, Г, Д, Ђ, Е, Ж, З, И, Ј, К, Л, Љ, М, Н, Њ, О, П, Р, С, Т, Ћ, У, Ф, Х, Ц, Ч, Џ, Ш
+- Small letters
+  a, б, в, г, д, ђ, е, ж, з, и, ј, к, л, љ, м, н, њ, о, п, р, с, т, ћ, у, ф, х, ц, ч, џ, ш
 
-Small
-a, б, в, г, д, ђ, е, ж, з, и, ј, к, л, љ, м, н, њ, о, п, р, с, т, ћ, у, ф, х, ц, ч, џ, ш
 
+I will try with latin variant of cirilic to better fit.
 
-I will try with latin variant of cirilic:
-Serbian LATIN VARIANT:
-
-A, B, V, G, D, Đ, E, Ž, Z, I, J, K, L, LJ, M, N, NJ, O, P, R, S, T, Ć, U, F, H, C, Č, DŽ, Š
+ - Serbian LATIN VARIANT:
+   A, B, V, G, D, Đ, E, Ž, Z, I, J, K, L, LJ, M, N, NJ, O, P, R, S, T, Ć, U, F, H, C, Č, DŽ, Š
 
 
 Welcoma to collaborate on this project.
