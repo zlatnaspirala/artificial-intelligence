@@ -1,11 +1,11 @@
 # artificial-intelligence
-## Make uniq comparation algorithm to make possible `recognition of spoken words`
+## Make uniq [phonetic] comparation algorithm to make possible `recognition of spoken words`
 ### Write as you speak and read as it is written.  — Vuk Stefanović Karadžić 
 
 
 Serbian language is perfect for computer science i will try to proof this fact in this project.
-Possible usage of Finnish and Sri Lanka.
-Possible programming language in this project :  c, c++, python, javascript.
+Possible usage of Finnish and Sri Lanka [phonetic].
+Possible programming language in this project: `c`, `c++`, `python`, `javascript` and `Visual C#/VB`.
 
 # BASIC
 There is a 30 symbols for representation of human 30 sounds.
@@ -22,5 +22,11 @@ I will try with latin variant of cirilic to better fit.
  - Serbian LATIN VARIANT:
    A, B, V, G, D, Đ, E, Ž, Z, I, J, K, L, LJ, M, N, NJ, O, P, R, S, T, Ć, U, F, H, C, Č, DŽ, Š
 
+#### I need first tool for visual presentation of sound
+  Name: VisualSound AI Tool
+  Source: https://codepen.io/zlatnaspirala/pen/eMopWv
+  WIP: remove canvas framework use nidza.js custom.
 
-Welcoma to collaborate on this project.
+
+
+## Welcome to collaborate on this project.
