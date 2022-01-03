@@ -27,6 +27,9 @@ I will try with latin variant of cirilic to better fit.
   Source: https://codepen.io/zlatnaspirala/pen/eMopWv
   WIP: remove canvas framework use nidza.js custom.
 
+### Welcome to collaborate on this project.
 
+### Whole code is covered by `GPL-3.0 License`
 
-## Welcome to collaborate on this project.
+ - It means if you done some changes you need to publish your modification.
+ - If there is no source changes than you no need to publish `artificial-intelligence`.
