@@ -1,18 +1,48 @@
-window.START = function(){
 
-  // SYS.DOM.CREATE_SURFACE( "SURF" , "HELLO_WORLD" , 100 , 99.4 , "DIAMETRIC" );
-  //NOW HELLO_WORLD IS OBJECT WITH ONE CANVAS TAG
-  // HELLO_WORLD.ENGINE.CREATE_MODUL("STARTER");
-  // var SMODULE = HELLO_WORLD.ENGINE.MODULES.ACCESS_MODULE("STARTER"); 
-  // SMODULE.NEW_OBJECT("TESLA" , 45 , 35 , 20 , 10 , 10);
-  // TESLA.TYPE_OF_GAME_OBJECT = 'CUSTOM';
+// import { Nidza } from "../node_modules/nidza/index";
+import { Nidza, Utility } from "nidza";
 
+var nidza = new Nidza();
+
+let myCHAR = {
+  id: "myCHAR",
+  size: {
+    width: window.innerWidth,
+    height: window.innerHeight
+  },
+  parentDom: document.getElementById('testHolder')
+};
+
+document.getElementById('loader').style.display = 'none';
+nidza.createNidzaIndentity(myCHAR);
+nidza.access.myCHAR.setBackground('orangered');
+
+var j = 1;
+let myStarElement = nidza.access.myCHAR.addCustom2dComponent({
+    id: "CUSTOM",
+    // radius: 10 + j,
+    // inset: 0.1 + j,
+    // n: 6 + j,
+    draw: (e) => {
+      console.log("CUSTOM DRAW", e)
+    },
+    position: {
+      x: 50,
+      y: 50
+    },
+    dimension: {
+      width: 180 + j,
+      height: 180+ j
+    }
+  });
+
+  let rotationOption = new nidza.Osc(0, 90, 0.5, "oscMax");
+  window.myStarElement = myStarElement
+
+  var TESLA = {};
   var CHANNELS = 120;
   TESLA.SOUND = {};
-
-  // HELLO_WORLD.MAP.CLEAR_MAP = true;
   var COUNT = 0
-
   TESLA.CUSTOM = function (s) {
 
    SURF.fillStyle = 'rgba(111 ,222 ,22 , 1)';
@@ -27,6 +57,7 @@ window.START = function(){
   // SURF.fill();
     SURF.rotate(90);
     COUNT++
+    
   };
 
   //////////////////////////////////////
@@ -134,13 +165,4 @@ window.START = function(){
 
     };
 
-   var Test = new audioInput (CHANNELS)
-   }
-  
-  setTimeout (function (){
-      window.START();
-  } , 1);
-
-  setTimeout (function (){
-      window.START();
-  }, 1100);
+  var Test = new audioInput (CHANNELS);
