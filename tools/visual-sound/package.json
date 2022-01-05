@@ -4,7 +4,9 @@
   "description": "Tool for audio signal preview",
   "main": "index.js",
   "scripts": {
-    "build.visual-sound": "browserify visual-sound.js -p esmify > builds/visual-sound.js",
+    "mic": "browserify points/visual-sound-mic.js -p esmify > builds/visual-sound-mic.js",
+    "file": "browserify points/visual-sound-file.js -p esmify > builds/visual-sound-file.js",
+    "all": "npm run mic && npm run file",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

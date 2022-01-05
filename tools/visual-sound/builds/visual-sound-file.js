@@ -4,6 +4,182 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.TESLA = exports.CHANNELS = exports.AudioInputFile = void 0;
+
+/**
+ * @description Start mic stream.
+ */
+var TESLA = {
+  SOUND: {}
+};
+exports.TESLA = TESLA;
+var CHANNELS = 120;
+exports.CHANNELS = CHANNELS;
+
+var AudioInputFile = function (channels, srcPath) {
+  var root = this;
+  root.channels = channels;
+  var audioContext = new AudioContext();
+  console.info("Audio context starting up ...");
+  var BUFF_SIZE = 16384; // Handle style
+
+  var controllerDom = document.getElementById('controller');
+  var audioHolder = document.createElement('div');
+  audioHolder.setAttribute('style', 'width:100%;border:solid 1px red;display:flex;'); // Create audio
+
+  var audio = new Audio();
+  audio.src = srcPath;
+  audio.controls = false;
+  audio.loop = false;
+  audio.autoplay = true;
+  audioHolder.append(audio);
+  var descTitle = document.createElement("div");
+  descTitle.innerHTML = `Current file: ` + srcPath + `.`;
+  controllerDom.append(descTitle);
+  controllerDom.append(audioHolder);
+  this.audio = audio; // Audio context/connect
+
+  this.context = new AudioContext();
+  this.analyser = this.context.createAnalyser();
+  this.source = this.context.createMediaElementSource(audio);
+  this.source.connect(this.analyser);
+  this.analyser.connect(this.context.destination);
+};
+
+exports.AudioInputFile = AudioInputFile;
+
+},{}],2:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TESLA = exports.CHANNELS = exports.AudioInputMic = void 0;
+
+/**
+ * @description Start mic stream.
+ */
+var TESLA = {
+  SOUND: {}
+};
+exports.TESLA = TESLA;
+var CHANNELS = 120;
+exports.CHANNELS = CHANNELS;
+
+var AudioInputMic = function (channels) {
+  var root = this;
+  root.channels = channels;
+  var audioContext = new AudioContext();
+  console.info("Audio context starting up ...");
+  var BUFF_SIZE = 16384;
+  var audioInput = null,
+      micStream = null,
+      gain_node = null,
+      script_processor_node = null,
+      script_processor_fft_node = null,
+      analyserNode = null;
+  if (!navigator.getUserMedia) navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+      audio: true
+    }, function (stream) {
+      start_microphone(stream);
+    }, function (e) {
+      console.log('Error :' + e);
+    });
+  } else {
+    alert('getUserMedia not supported in this browser.');
+  }
+
+  function show_some_data(given_typed_array, num_row_to_display, fromChannel) {
+    if (typeof fromChannel !== 'undefined') {
+      console.log('from c');
+    }
+
+    var size_buffer = given_typed_array.length;
+    var index = 0;
+    var max_index = num_row_to_display;
+
+    for (; index < max_index && index < size_buffer; index += 1) {
+      console.log(">>>>>", given_typed_array[index]);
+      TESLA.SOUND['amp' + index] = given_typed_array[index];
+    }
+  }
+
+  function process_microphone_buffer(event) {
+    var i, N, inp, microphone_output_buffer; // just mono - 1 channel for now
+
+    microphone_output_buffer = event.inputBuffer.getChannelData(0); // microphone_output_buffer  <-- this buffer contains current gulp of data size BUFF_SIZE
+
+    show_some_data(microphone_output_buffer, root.channels, "from getChannelData");
+  }
+
+  function start_microphone(stream) {
+    gain_node = audioContext.createGain();
+    gain_node.connect(audioContext.destination);
+    micStream = audioContext.createMediaStreamSource(stream);
+    micStream.connect(gain_node);
+    script_processor_node = audioContext.createScriptProcessor(BUFF_SIZE, 1, 1);
+    script_processor_node.onaudioprocess = process_microphone_buffer;
+    /**
+     *
+     * class BypassProcessor extends AudioWorkletProcessor {
+        // When constructor() undefined, the default constructor will be
+        // implicitly used.
+          process(inputs, outputs) {
+        // By default, the node has single input and output.
+        const input = inputs[0];
+        const output = outputs[0];
+          for (let channel = 0; channel < output.length; ++channel) {
+          output[channel].set(input[channel]);
+        }
+          return true;
+        }
+        }
+          registerProcessor('bypass-processor', BypassProcessor);
+          ///
+        const bypasser = new AudioWorkletNode(context, 'bypass-processor');
+        ///
+     **/
+
+    micStream.connect(script_processor_node); // document.getElementById('volume').addEventListener('change', function() {
+
+    function changeVolume(value) {
+      var curr_volume = value;
+      gain_node.gain.value = curr_volume;
+      console.log("curr_volume ", curr_volume);
+    } // --- setup FFT
+
+
+    script_processor_fft_node = audioContext.createScriptProcessor(2048, 1, 1);
+    script_processor_fft_node.connect(gain_node);
+    analyserNode = audioContext.createAnalyser();
+    analyserNode.smoothingTimeConstant = 0;
+    analyserNode.fftSize = 2048;
+    micStream.connect(analyserNode);
+    analyserNode.connect(script_processor_fft_node);
+
+    script_processor_fft_node.onaudioprocess = function () {
+      // get the average for the first channel
+      var array = new Uint8Array(analyserNode.frequencyBinCount);
+      analyserNode.getByteFrequencyData(array); // draw the spectrogram
+
+      if (micStream.playbackState == micStream.PLAYING_STATE) {
+        show_some_data(array, root.channels);
+      }
+    };
+  }
+};
+
+exports.AudioInputMic = AudioInputMic;
+
+},{}],3:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 Object.defineProperty(exports, "Nidza", {
   enumerable: true,
   get: function () {
@@ -22,7 +198,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-},{"./src/lib/utility":17,"./src/nidza":18}],2:[function(require,module,exports){
+},{"./src/lib/utility":19,"./src/nidza":20}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46,7 +222,7 @@ class NidzaElement {
 
 exports.NidzaElement = NidzaElement;
 
-},{"./dimension":6,"./position":11}],3:[function(require,module,exports){
+},{"./dimension":8,"./position":13}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -70,7 +246,7 @@ function setReferent(canvasDom) {
   };
 }
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -212,7 +388,7 @@ class BaseShader {
 
 exports.BaseShader = BaseShader;
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -274,7 +450,7 @@ class NidzaCustom2dComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaCustom2dComponent = NidzaCustom2dComponent;
 
-},{"./base-component":2,"./operations":10,"./rotation":12}],6:[function(require,module,exports){
+},{"./base-component":4,"./operations":12,"./rotation":14}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -405,7 +581,7 @@ class Dimension {
 
 exports.Dimension = Dimension;
 
-},{"./base-referent":3}],7:[function(require,module,exports){
+},{"./base-referent":5}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -554,7 +730,7 @@ class Nidza3dIdentity {
 
 exports.Nidza3dIdentity = Nidza3dIdentity;
 
-},{"./shader-component":14,"./shader-component-custom":13,"./utility":17}],8:[function(require,module,exports){
+},{"./shader-component":16,"./shader-component-custom":15,"./utility":19}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -752,7 +928,7 @@ class NidzaIdentity {
 
 exports.NidzaIdentity = NidzaIdentity;
 
-},{"./custom2d-component":5,"./matrix-component":9,"./star-component":15,"./text-component":16,"./utility":17}],9:[function(require,module,exports){
+},{"./custom2d-component":7,"./matrix-component":11,"./star-component":17,"./text-component":18,"./utility":19}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1023,7 +1199,7 @@ class NidzaMatrixComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaMatrixComponent = NidzaMatrixComponent;
 
-},{"./base-component":2,"./operations":10,"./rotation":12,"./utility":17}],10:[function(require,module,exports){
+},{"./base-component":4,"./operations":12,"./rotation":14,"./utility":19}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1318,7 +1494,7 @@ function drawStarRotation() {
   this.ctx.restore();
 }
 
-},{"./utility":17}],11:[function(require,module,exports){
+},{"./utility":19}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1451,7 +1627,7 @@ class Position {
 
 exports.Position = Position;
 
-},{"./base-referent":3}],12:[function(require,module,exports){
+},{"./base-referent":5}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1544,7 +1720,7 @@ class Rotator {
 
 exports.Rotator = Rotator;
 
-},{"./operations":10}],13:[function(require,module,exports){
+},{"./operations":12}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1688,7 +1864,7 @@ class ShaderComponentCustom extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponentCustom = ShaderComponentCustom;
 
-},{"./base-shader-component":4}],14:[function(require,module,exports){
+},{"./base-shader-component":6}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1883,7 +2059,7 @@ class ShaderComponent extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponent = ShaderComponent;
 
-},{"./base-shader-component":4,"./operations":10}],15:[function(require,module,exports){
+},{"./base-shader-component":6,"./operations":12}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1950,7 +2126,7 @@ class NidzaStarComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaStarComponent = NidzaStarComponent;
 
-},{"./base-component":2,"./operations":10,"./rotation":12}],16:[function(require,module,exports){
+},{"./base-component":4,"./operations":12,"./rotation":14}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2087,7 +2263,7 @@ class NidzaTextComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaTextComponent = NidzaTextComponent;
 
-},{"./base-component":2,"./operations":10,"./rotation":12}],17:[function(require,module,exports){
+},{"./base-component":4,"./operations":12,"./rotation":14}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2217,7 +2393,7 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2317,154 +2493,116 @@ class Nidza {
 
 exports.Nidza = Nidza;
 
-},{"./lib/identity":8,"./lib/identity-3d":7,"./lib/operations":10}],19:[function(require,module,exports){
+},{"./lib/identity":10,"./lib/identity-3d":9,"./lib/operations":12}],21:[function(require,module,exports){
 "use strict";
 
-var _nidza = require("nidza");
+var _index = require("../node_modules/nidza/index");
 
-// import { Nidza } from "../node_modules/nidza/index";
-var nidza = new _nidza.Nidza();
-let myCHAR = {
-  id: "myCHAR",
+var _aiMic = require("../js/ai-mic");
+
+var _aiAudio = require("../js/ai-audio");
+
+// import { Nidza } from "nidza";
+var nidza = new _index.Nidza();
+let AISound = {
+  id: "myCHAR1",
   size: {
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight * 15
   },
   parentDom: document.getElementById('testHolder')
 };
 document.getElementById('loader').style.display = 'none';
-nidza.createNidzaIndentity(myCHAR);
-nidza.access.myCHAR.setBackground('orangered');
+nidza.createNidzaIndentity(AISound);
+nidza.access.myCHAR1.setBackground('orangered');
+nidza.access.myCHAR1.clearOnUpdate = false;
+window.nidza = nidza; // Visual params
+
+var sLineWidth = 1,
+    sSpace = 5;
+var COUNT = 0;
 var j = 1;
-let myStarElement = nidza.access.myCHAR.addCustom2dComponent({
+/*
+let myStarElement = nidza.access.myCHAR1.addCustom2dComponent({
   id: "CUSTOM",
-  // radius: 10 + j,
-  // inset: 0.1 + j,
-  // n: 6 + j,
-  draw: e => {
-    console.log("CUSTOM DRAW", e);
+  radius: 10,
+  draw: function(e) {
+    // console.log("CUSTOM DRAW", this.position)
+    if(!e) return;
+    e.fillStyle = 'rgba(111 ,222 ,22 , 1)';
+    for(var d = 0;d < CHANNELS;d++) {
+      e.fillRect(this.position.getX() + sSpace * d, this.position.getY(), sLineWidth, 1 + TESLA.SOUND['amp' + d])
+      e.strokeStyle = 'rgba(' + 40 + TESLA.SOUND['amp' + d] + ' ,' + 11 + TESLA.SOUND['amp' + d] + ' ,' + 1 + TESLA.SOUND['amp' + d] + ' , 0.8)';
+      e.beginPath();
+      e.arc(500, this.position.getY(), 1 + TESLA.SOUND['amp' + d], 0, 2 * Math.PI);
+      e.stroke();
+      e.fillRect(this.position.getX() + sSpace * d, this.position.getY() + 90, sLineWidth, 1 - TESLA.SOUND['amp' + d])
+    }
+    COUNT++;
   },
   position: {
-    x: 50,
-    y: 50
+    x: 1,
+    y: 1
   },
   dimension: {
-    width: 180 + j,
-    height: 180 + j
+    width: 1,
+    height: 1
   }
 });
+
 let rotationOption = new nidza.Osc(0, 90, 0.5, "oscMax");
 window.myStarElement = myStarElement;
-var TESLA = {};
-var CHANNELS = 120;
-TESLA.SOUND = {};
-var COUNT = 0;
+*/
 
-TESLA.CUSTOM = function (s) {
-  SURF.fillStyle = 'rgba(111 ,222 ,22 , 1)';
+var invrementatorY = 0; // Construct it
 
-  for (var d = 0; d < CHANNELS; d++) {
-    SURF.fillRect(50 + 10 * d, 120, 3, 5 + TESLA.SOUND['amp' + d]);
-    SURF.strokeStyle = 'rgba(' + 40 + TESLA.SOUND['amp' + d] + ' ,' + 11 + TESLA.SOUND['amp' + d] + ' ,' + 1 + TESLA.SOUND['amp' + d] + ' , 0.8)';
-    SURF.beginPath();
-    SURF.arc(500, 300, 1 + TESLA.SOUND['amp' + d], 0, 2 * Math.PI);
-    SURF.stroke();
-    SURF.fillRect(50 + 10 * d, 500, 3, 5 - TESLA.SOUND['amp' + d]);
-  } // SURF.fill();
+var attachAudioInputFile = function () {
+  // var TestMicrophone = new AudioInputMic(CHANNELS);
+  nidza.access.myCHAR1.testAudioFile = new _aiAudio.AudioInputFile(_aiMic.CHANNELS, '../../data/uniqs/a.m4a');
+  var visualIncY = 0;
+  let mySamplerSeparator = nidza.access.myCHAR1.addCustom2dComponent({
+    id: "separator",
+    draw: function (e) {
+      var injector = nidza.access.myCHAR1.testAudioFile;
+      if (!e) return;
+      var bar_pos = 0,
+          bar_width = 0,
+          bar_height = 0; // console.log("CUSTOM DRAW -> ", injector)
+      // console.log("CUSTOM DRAW e  -> ", e)
 
+      var fbc_array = new Uint8Array(injector.analyser.frequencyBinCount);
+      var bar_count = window.innerWidth * 0.3;
+      injector.analyser.getByteFrequencyData(fbc_array); // e.clearRect(0, 0, window.innerWidth, window.innerHeight * 5);
 
-  SURF.rotate(90);
-  COUNT++;
-}; //////////////////////////////////////
-// TEST
-//////////////////////////////////////
+      e.fillStyle = "#ffffff";
 
-
-var audioInput = function (channels) {
-  var root = this;
-  root.channels = channels;
-  var audioContext = new AudioContext();
-  console.log("audio is starting up ...");
-  var BUFF_SIZE = 16384;
-  var audioInput = null,
-      micStream = null,
-      gain_node = null,
-      script_processor_node = null,
-      script_processor_fft_node = null,
-      analyserNode = null;
-  if (!navigator.getUserMedia) navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-  if (navigator.getUserMedia) {
-    navigator.getUserMedia({
-      audio: true
-    }, function (stream) {
-      start_microphone(stream);
-    }, function (e) {
-      console.log('Error :' + e);
-    });
-  } else {
-    alert('getUserMedia not supported in this browser.');
-  }
-
-  function show_some_data(given_typed_array, num_row_to_display, fromChannel) {
-    if (typeof fromChannel !== 'undefined') {
-      console.log('from c');
-    }
-
-    var size_buffer = given_typed_array.length;
-    var index = 0;
-    var max_index = num_row_to_display;
-
-    for (; index < max_index && index < size_buffer; index += 1) {
-      //console.log(given_typed_array[index]);
-      TESLA.SOUND['amp' + index] = given_typed_array[index];
-    }
-  }
-
-  function process_microphone_buffer(event) {
-    var i, N, inp, microphone_output_buffer; // just mono - 1 channel for now
-
-    microphone_output_buffer = event.inputBuffer.getChannelData(0); // microphone_output_buffer  <-- this buffer contains current gulp of data size BUFF_SIZE
-
-    show_some_data(microphone_output_buffer, root.channels, "from getChannelData");
-  }
-
-  function start_microphone(stream) {
-    gain_node = audioContext.createGain();
-    gain_node.connect(audioContext.destination);
-    micStream = audioContext.createMediaStreamSource(stream);
-    micStream.connect(gain_node);
-    script_processor_node = audioContext.createScriptProcessor(BUFF_SIZE, 1, 1);
-    script_processor_node.onaudioprocess = process_microphone_buffer;
-    micStream.connect(script_processor_node); // document.getElementById('volume').addEventListener('change', function() {
-
-    function changeVolume(value) {
-      var curr_volume = value;
-      gain_node.gain.value = curr_volume;
-      console.log("curr_volume ", curr_volume);
-    } // --- setup FFT
+      for (var i = 0; i < bar_count; i++) {
+        bar_pos = i * 4;
+        bar_width = 1;
+        bar_height = -(fbc_array[i] / 2);
+        e.fillRect(bar_pos, visualIncY + 50, bar_width, bar_height);
+      } // console.log('LOW DETECT LIMIT', bar_height);
 
 
-    script_processor_fft_node = audioContext.createScriptProcessor(2048, 1, 1);
-    script_processor_fft_node.connect(gain_node);
-    analyserNode = audioContext.createAnalyser();
-    analyserNode.smoothingTimeConstant = 0;
-    analyserNode.fftSize = 2048;
-    micStream.connect(analyserNode);
-    analyserNode.connect(script_processor_fft_node);
-
-    script_processor_fft_node.onaudioprocess = function () {
-      // get the average for the first channel
-      var array = new Uint8Array(analyserNode.frequencyBinCount);
-      analyserNode.getByteFrequencyData(array); // draw the spectrogram
-
-      if (micStream.playbackState == micStream.PLAYING_STATE) {
-        show_some_data(array, root.channels);
+      if (bar_height != 0) {
+        visualIncY = visualIncY + 200;
       }
-    };
-  }
-};
+    },
+    position: {
+      x: 1,
+      y: 30
+    },
+    dimension: {
+      width: 1,
+      height: 1
+    }
+  });
+  window.mySamplerSeparator = mySamplerSeparator;
+  mySamplerSeparator.activeDraw();
+}; // First user request
+//addEventListener('click', attachAudioInputFile);
 
-var Test = new audioInput(CHANNELS);
 
-},{"nidza":1}]},{},[19]);
+document.getElementById('attacherAudioFile').addEventListener('click', attachAudioInputFile);
+
+},{"../js/ai-audio":1,"../js/ai-mic":2,"../node_modules/nidza/index":3}]},{},[21]);

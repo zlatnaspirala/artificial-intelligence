@@ -1,0 +1,75 @@
+::-webkit-scrollbar {
+  width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(7, 251, 7, 0.5);
+  }
+
+body {
+  background: #373737 url("./imgs/bg.png") 0 0 repeat;
+  font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #6DA9CD;
+  text-align: center;
+  overflow: hidden;
+}
+
+.holderExamples {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  left:25%;
+  top:2%;
+  text-align: center;
+}
+
+.holder {
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  overflow: scroll;
+  left:0;
+  top:0;
+  text-align: center;
+}
+
+p {
+  margin: 2px 2px 2px 2px;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left:0;
+  top:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: black;
+  color:greenyellow
+}
+
+.controller {
+  position: absolute;
+  width: 20%;
+  height: 70px;
+  left:0;
+  top:0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: black;
+  color:greenyellow;
+}
