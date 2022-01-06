@@ -29,9 +29,9 @@ var countSamples = 0
 var j = 1;
 
 // Construct it
-var attachAudioInputFile = function() {
+var attachAudioInputFile = function(spath) {
   // var TestMicrophone = new AudioInputMic(CHANNELS);
-  nidza.access.experimental1.testAudioFile = new AudioInputFile(CHANNELS, '../../../data/uniqs/a.m4a');
+  nidza.access.experimental1.testAudioFile = new AudioInputFile(CHANNELS, spath);
 
   var visualIncY = 0;
   let mySamplerSeparator = nidza.access.experimental1.addCustom2dComponent({
@@ -44,7 +44,7 @@ var attachAudioInputFile = function() {
       var bar_count = 480; // window.innerWidth * 0.3;
       injector.analyser.getByteFrequencyData(fbc_array);
 
-      // Check level og zeros 
+      // Check level of zeros
       var zerosAMP = 0;
 
       // e.clearRect(0, 0, window.innerWidth, window.innerHeight * 5);
@@ -65,7 +65,7 @@ var attachAudioInputFile = function() {
           e.fillText( "T" + i.toString() , bar_pos, visualIncY + 50, 30, 30)
           e.fillStyle = "red";
         } else {
-          e.fillStyle = "white";
+          e.fillStyle = "rgba(12,55,122,0.5)";
         }
 
         e.fillRect(bar_pos, visualIncY + 50, bar_width, bar_height);
@@ -79,7 +79,7 @@ var attachAudioInputFile = function() {
       countSamples++;
       // console.log('LOW DETECT LIMIT => ', zerosAMP);
       if (zerosAMP < 150) {
-        visualIncY = visualIncY + 200;
+        visualIncY = visualIncY + 250;
       }
 
     },
@@ -99,5 +99,17 @@ var attachAudioInputFile = function() {
 // First user request
 // addEventListener('click', attachAudioInputFile);
 
-document.getElementById('attacherAudioFile').
-  addEventListener('click', attachAudioInputFile);
+// A Fonet
+function sample1Fon(fon) {
+  attachAudioInputFile('../../../data/uniqs/' + fon + '.m4a');
+}
+
+document.getElementById('attacherAudioFileA').
+  addEventListener('click', () => {
+    sample1Fon('a');
+  });
+
+  document.getElementById('attacherAudioFileB').
+  addEventListener('click', () => {
+    sample1Fon('b');
+  });
