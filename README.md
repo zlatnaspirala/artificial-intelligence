@@ -30,9 +30,10 @@ I will try with latin variant of cirilic to better fit.
 
 ### First graphisc raport
 
-![](https://github.com/zlatnaspirala/rocket-craft/blob/master/data/raports/a-sample1.png)
+![](https://github.com/zlatnaspirala/artificial-intelligence/blob/main/data/raports/a-sample1.png)
 
- - Red bars represents max amp.
+ - Red bars represents max amp for comparing arround referent value +-1 by index.
+ - Default 460 draw samples.
 
 
 
