@@ -7,9 +7,9 @@ import {AudioInputFile} from "../js/ai-audio";
 var nidza = new Nidza();
 
 let AISound = {
-  id: "myCHAR1",
+  id: "experimental1",
   size: {
-    width: window.innerWidth,
+    width: window.innerWidth * 2,
     height: window.innerHeight * 15
   },
   parentDom: document.getElementById('testHolder')
@@ -17,86 +17,75 @@ let AISound = {
 
 document.getElementById('loader').style.display = 'none';
 nidza.createNidzaIndentity(AISound);
-nidza.access.myCHAR1.setBackground('orangered');
-nidza.access.myCHAR1.clearOnUpdate = false;
+nidza.access.experimental1.setBackground('black');
+nidza.access.experimental1.clearOnUpdate = false;
 
 window.nidza = nidza;
 
 // Visual params
 var sLineWidth = 1,
-    sSpace = 5;
-var COUNT = 0
+    sSpace = 3;
+var countSamples = 0
 var j = 1;
-
-/*
-let myStarElement = nidza.access.myCHAR1.addCustom2dComponent({
-  id: "CUSTOM",
-  radius: 10,
-  draw: function(e) {
-    // console.log("CUSTOM DRAW", this.position)
-    if(!e) return;
-    e.fillStyle = 'rgba(111 ,222 ,22 , 1)';
-    for(var d = 0;d < CHANNELS;d++) {
-      e.fillRect(this.position.getX() + sSpace * d, this.position.getY(), sLineWidth, 1 + TESLA.SOUND['amp' + d])
-      e.strokeStyle = 'rgba(' + 40 + TESLA.SOUND['amp' + d] + ' ,' + 11 + TESLA.SOUND['amp' + d] + ' ,' + 1 + TESLA.SOUND['amp' + d] + ' , 0.8)';
-      e.beginPath();
-      e.arc(500, this.position.getY(), 1 + TESLA.SOUND['amp' + d], 0, 2 * Math.PI);
-      e.stroke();
-      e.fillRect(this.position.getX() + sSpace * d, this.position.getY() + 90, sLineWidth, 1 - TESLA.SOUND['amp' + d])
-    }
-    COUNT++;
-  },
-  position: {
-    x: 1,
-    y: 1
-  },
-  dimension: {
-    width: 1,
-    height: 1
-  }
-});
-
-let rotationOption = new nidza.Osc(0, 90, 0.5, "oscMax");
-window.myStarElement = myStarElement;
-*/
-
-var invrementatorY = 0;
 
 // Construct it
 var attachAudioInputFile = function() {
   // var TestMicrophone = new AudioInputMic(CHANNELS);
-  nidza.access.myCHAR1.testAudioFile = new AudioInputFile(CHANNELS, '../../data/uniqs/a.m4a');
+  nidza.access.experimental1.testAudioFile = new AudioInputFile(CHANNELS, '../../../data/uniqs/a.m4a');
 
   var visualIncY = 0;
-  let mySamplerSeparator = nidza.access.myCHAR1.addCustom2dComponent({
+  let mySamplerSeparator = nidza.access.experimental1.addCustom2dComponent({
     id: "separator",
     draw: function(e) {
-      var injector = nidza.access.myCHAR1.testAudioFile;
+      var injector = nidza.access.experimental1.testAudioFile;
       if (!e) return;
       var bar_pos = 0, bar_width = 0, bar_height = 0;
-      // console.log("CUSTOM DRAW -> ", injector)
-      // console.log("CUSTOM DRAW e  -> ", e)
       var fbc_array = new Uint8Array(injector.analyser.frequencyBinCount);
-      var bar_count = window.innerWidth * 0.3;
+      var bar_count = 480; // window.innerWidth * 0.3;
       injector.analyser.getByteFrequencyData(fbc_array);
+
+      // Check level og zeros 
+      var zerosAMP = 0;
 
       // e.clearRect(0, 0, window.innerWidth, window.innerHeight * 5);
       e.fillStyle = "#ffffff";
       for (var i = 0; i < bar_count; i++) {
-        bar_pos = i * 4;
+        bar_pos = i * sSpace;
         bar_width = 1;
-        bar_height = -(fbc_array[i] / 2);
+        bar_height = -(fbc_array[i] / 1);
+        var testbefore = (fbc_array[i-1] / 1);
+        var testnext = (fbc_array[i+1] / 1);
+
+        if (bar_height == 0) {
+          zerosAMP++;
+        }
+
+        if (Math.abs(bar_height) > testbefore && Math.abs(bar_height) > testnext) {
+          e.fillStyle = "white";
+          e.fillText( "T" + i.toString() , bar_pos, visualIncY + 50, 30, 30)
+          e.fillStyle = "red";
+        } else {
+          e.fillStyle = "white";
+        }
+
         e.fillRect(bar_pos, visualIncY + 50, bar_width, bar_height);
+
+        if (bar_count - 1 == i) {
+          e.fillText("Sample " + countSamples, bar_pos + 100, visualIncY, 100, 100);
+        }
+
       }
 
-      // console.log('LOW DETECT LIMIT', bar_height);
-      if (bar_height != 0) {
+      countSamples++;
+      // console.log('LOW DETECT LIMIT => ', zerosAMP);
+      if (zerosAMP < 150) {
         visualIncY = visualIncY + 200;
       }
+
     },
     position: {
-      x: 1,
-      y: 30
+      x: 5,
+      y: 140
     },
     dimension: {
       width: 1,
@@ -108,7 +97,7 @@ var attachAudioInputFile = function() {
   mySamplerSeparator.activeDraw();
 }
 // First user request
-//addEventListener('click', attachAudioInputFile);
+// addEventListener('click', attachAudioInputFile);
 
 document.getElementById('attacherAudioFile').
   addEventListener('click', attachAudioInputFile);

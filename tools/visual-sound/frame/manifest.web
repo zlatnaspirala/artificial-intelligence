@@ -1,0 +1,35 @@
+{
+  "name": "ai-nidza-tools",
+  "short_name": "Visual-audios",
+  "start_url": "dev.html",
+  "orientation": "any",
+  "theme_color": "lime",
+  "background_color": "black",
+  "description": "Welcome to the AI project.",
+  "display": "standalone",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "imgs/icons/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "imgs/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "imgs/icons/apple-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "author": {
+      "name": "Nikola Lukic",
+      "website": "https://maximumroulette.com",
+      "github": "https://github.com/zlatnaspirala",
+      "source-repo": "https://github.com/zlatnaspirala/artificial-intelligence"
+  }
+}

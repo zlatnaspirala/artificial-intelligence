@@ -27,6 +27,15 @@ I will try with latin variant of cirilic to better fit.
   Source: https://codepen.io/zlatnaspirala/pen/eMopWv
   WIP: remove canvas framework use nidza.js custom.
 
+
+### First graphisc raport
+
+![](https://github.com/zlatnaspirala/rocket-craft/blob/master/data/raports/a-sample1.png)
+
+ - Red bars represents max amp.
+
+
+
 ### Welcome to collaborate on this project.
 
 ### Whole code is covered by `GPL-3.0 License`

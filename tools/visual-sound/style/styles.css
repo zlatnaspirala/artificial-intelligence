@@ -3,7 +3,7 @@
   }
   
   ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgb(0, 0, 0);
   border-radius: 10px;
   }
   
@@ -13,7 +13,7 @@
   }
 
 body {
-  background: #373737 url("./imgs/bg.png") 0 0 repeat;
+  background: #373737 url("./../imgs/bg.png") 0 0 repeat;
   font: 14px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -62,9 +62,9 @@ p {
 .controller {
   position: absolute;
   width: 20%;
-  height: 70px;
+  height: 40px;
   left:0;
-  top:0;
+  bottom:0;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -72,4 +72,33 @@ p {
   text-align: center;
   background: black;
   color:greenyellow;
+}
+
+button {
+  background-color: #373737;
+  color: chartreuse;
+  border: solid 1px lime;
+}
+
+button:hover {
+  color: #373737;
+  background-color: chartreuse;
+  border: solid 1px rgb(132, 0, 255);
+}
+
+.prodcWraper {
+  display: flex;
+  background-color: black;
+  height: calc(100vh);
+}
+
+.prodcSub {
+  width: 10%;
+  background-color: rgba(8, 8, 8, 0.712);
+  color: rgb(239, 255, 233);
+}
+
+.prodcFrame {
+  width:90%;
+  border: none;
 }

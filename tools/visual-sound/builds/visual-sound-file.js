@@ -25,7 +25,7 @@ var AudioInputFile = function (channels, srcPath) {
 
   var controllerDom = document.getElementById('controller');
   var audioHolder = document.createElement('div');
-  audioHolder.setAttribute('style', 'width:100%;border:solid 1px red;display:flex;'); // Create audio
+  audioHolder.setAttribute('style', 'width:100%;display:flex;'); // Create audio
 
   var audio = new Audio();
   audio.src = srcPath;
@@ -33,8 +33,8 @@ var AudioInputFile = function (channels, srcPath) {
   audio.loop = false;
   audio.autoplay = true;
   audioHolder.append(audio);
-  var descTitle = document.createElement("div");
-  descTitle.innerHTML = `Current file: ` + srcPath + `.`;
+  var descTitle = document.createElement("div"); // descTitle.innerHTML = `Current file: ` + srcPath + `.`;
+
   controllerDom.append(descTitle);
   controllerDom.append(audioHolder);
   this.audio = audio; // Audio context/connect
@@ -70,7 +70,7 @@ var AudioInputMic = function (channels) {
   var root = this;
   root.channels = channels;
   var audioContext = new AudioContext();
-  console.info("Audio context starting up ...");
+  console.info("Audio context starting up for mic...");
   var BUFF_SIZE = 16384;
   var audioInput = null,
       micStream = null,
@@ -102,7 +102,7 @@ var AudioInputMic = function (channels) {
     var max_index = num_row_to_display;
 
     for (; index < max_index && index < size_buffer; index += 1) {
-      console.log(">>>>>", given_typed_array[index]);
+      // console.log(">>>>>",given_typed_array[index]);
       TESLA.SOUND['amp' + index] = given_typed_array[index];
     }
   }
@@ -2558,7 +2558,7 @@ var invrementatorY = 0; // Construct it
 
 var attachAudioInputFile = function () {
   // var TestMicrophone = new AudioInputMic(CHANNELS);
-  nidza.access.myCHAR1.testAudioFile = new _aiAudio.AudioInputFile(_aiMic.CHANNELS, '../../data/uniqs/a.m4a');
+  nidza.access.myCHAR1.testAudioFile = new _aiAudio.AudioInputFile(_aiMic.CHANNELS, '../../../data/uniqs/a.m4a');
   var visualIncY = 0;
   let mySamplerSeparator = nidza.access.myCHAR1.addCustom2dComponent({
     id: "separator",

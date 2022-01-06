@@ -4,56 +4,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TESLA = exports.CHANNELS = exports.AudioInputFile = void 0;
-
-/**
- * @description Start mic stream.
- */
-var TESLA = {
-  SOUND: {}
-};
-exports.TESLA = TESLA;
-var CHANNELS = 120;
-exports.CHANNELS = CHANNELS;
-
-var AudioInputFile = function (channels, srcPath) {
-  var root = this;
-  root.channels = channels;
-  var audioContext = new AudioContext();
-  console.info("Audio context starting up ...");
-  var BUFF_SIZE = 16384; // Handle style
-
-  var controllerDom = document.getElementById('controller');
-  var audioHolder = document.createElement('div');
-  audioHolder.setAttribute('style', 'width:100%;border:solid 1px red;display:flex;'); // Create audio
-
-  var audio = new Audio();
-  audio.src = srcPath;
-  audio.controls = false;
-  audio.loop = false;
-  audio.autoplay = true;
-  audioHolder.append(audio);
-  var descTitle = document.createElement("div");
-  descTitle.innerHTML = `Current file: ` + srcPath + `.`;
-  controllerDom.append(descTitle);
-  controllerDom.append(audioHolder);
-  this.audio = audio; // Audio context/connect
-
-  this.context = new AudioContext();
-  this.analyser = this.context.createAnalyser();
-  this.source = this.context.createMediaElementSource(audio);
-  this.source.connect(this.analyser);
-  this.analyser.connect(this.context.destination);
-};
-
-exports.AudioInputFile = AudioInputFile;
-
-},{}],2:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.TESLA = exports.CHANNELS = exports.AudioInputMic = void 0;
 
 /**
@@ -70,7 +20,7 @@ var AudioInputMic = function (channels) {
   var root = this;
   root.channels = channels;
   var audioContext = new AudioContext();
-  console.info("Audio context starting up ...");
+  console.info("Audio context starting up for mic...");
   var BUFF_SIZE = 16384;
   var audioInput = null,
       micStream = null,
@@ -102,7 +52,7 @@ var AudioInputMic = function (channels) {
     var max_index = num_row_to_display;
 
     for (; index < max_index && index < size_buffer; index += 1) {
-      console.log(">>>>>", given_typed_array[index]);
+      // console.log(">>>>>",given_typed_array[index]);
       TESLA.SOUND['amp' + index] = given_typed_array[index];
     }
   }
@@ -174,7 +124,7 @@ var AudioInputMic = function (channels) {
 
 exports.AudioInputMic = AudioInputMic;
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -198,7 +148,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-},{"./src/lib/utility":19,"./src/nidza":20}],4:[function(require,module,exports){
+},{"./src/lib/utility":18,"./src/nidza":19}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -222,7 +172,7 @@ class NidzaElement {
 
 exports.NidzaElement = NidzaElement;
 
-},{"./dimension":8,"./position":13}],5:[function(require,module,exports){
+},{"./dimension":7,"./position":12}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -246,7 +196,7 @@ function setReferent(canvasDom) {
   };
 }
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -388,7 +338,7 @@ class BaseShader {
 
 exports.BaseShader = BaseShader;
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -450,7 +400,7 @@ class NidzaCustom2dComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaCustom2dComponent = NidzaCustom2dComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],8:[function(require,module,exports){
+},{"./base-component":3,"./operations":11,"./rotation":13}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -581,7 +531,7 @@ class Dimension {
 
 exports.Dimension = Dimension;
 
-},{"./base-referent":5}],9:[function(require,module,exports){
+},{"./base-referent":4}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -730,7 +680,7 @@ class Nidza3dIdentity {
 
 exports.Nidza3dIdentity = Nidza3dIdentity;
 
-},{"./shader-component":16,"./shader-component-custom":15,"./utility":19}],10:[function(require,module,exports){
+},{"./shader-component":15,"./shader-component-custom":14,"./utility":18}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -928,7 +878,7 @@ class NidzaIdentity {
 
 exports.NidzaIdentity = NidzaIdentity;
 
-},{"./custom2d-component":7,"./matrix-component":11,"./star-component":17,"./text-component":18,"./utility":19}],11:[function(require,module,exports){
+},{"./custom2d-component":6,"./matrix-component":10,"./star-component":16,"./text-component":17,"./utility":18}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1199,7 +1149,7 @@ class NidzaMatrixComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaMatrixComponent = NidzaMatrixComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14,"./utility":19}],12:[function(require,module,exports){
+},{"./base-component":3,"./operations":11,"./rotation":13,"./utility":18}],11:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1494,7 +1444,7 @@ function drawStarRotation() {
   this.ctx.restore();
 }
 
-},{"./utility":19}],13:[function(require,module,exports){
+},{"./utility":18}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1627,7 +1577,7 @@ class Position {
 
 exports.Position = Position;
 
-},{"./base-referent":5}],14:[function(require,module,exports){
+},{"./base-referent":4}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1720,7 +1670,7 @@ class Rotator {
 
 exports.Rotator = Rotator;
 
-},{"./operations":12}],15:[function(require,module,exports){
+},{"./operations":11}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1864,7 +1814,7 @@ class ShaderComponentCustom extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponentCustom = ShaderComponentCustom;
 
-},{"./base-shader-component":6}],16:[function(require,module,exports){
+},{"./base-shader-component":5}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2059,7 +2009,7 @@ class ShaderComponent extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponent = ShaderComponent;
 
-},{"./base-shader-component":6,"./operations":12}],17:[function(require,module,exports){
+},{"./base-shader-component":5,"./operations":11}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2126,7 +2076,7 @@ class NidzaStarComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaStarComponent = NidzaStarComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],18:[function(require,module,exports){
+},{"./base-component":3,"./operations":11,"./rotation":13}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2263,7 +2213,7 @@ class NidzaTextComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaTextComponent = NidzaTextComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],19:[function(require,module,exports){
+},{"./base-component":3,"./operations":11,"./rotation":13}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2393,7 +2343,7 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-},{}],20:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2493,14 +2443,12 @@ class Nidza {
 
 exports.Nidza = Nidza;
 
-},{"./lib/identity":10,"./lib/identity-3d":9,"./lib/operations":12}],21:[function(require,module,exports){
+},{"./lib/identity":9,"./lib/identity-3d":8,"./lib/operations":11}],20:[function(require,module,exports){
 "use strict";
 
 var _index = require("../node_modules/nidza/index");
 
 var _aiMic = require("../js/ai-mic");
-
-var _aiAudio = require("../js/ai-audio");
 
 // import { Nidza } from "nidza";
 var nidza = new _index.Nidza();
@@ -2521,93 +2469,40 @@ window.nidza = nidza; // Visual params
 var sLineWidth = 1,
     sSpace = 5;
 var COUNT = 0;
-var j = 1;
-let myStarElement = nidza.access.myCHAR1.addCustom2dComponent({
-  id: "CUSTOM",
-  radius: 10,
-  draw: function (e) {
-    // console.log("CUSTOM DRAW", TESLA.SOUND)
-    if (!e) return;
-    e.fillStyle = 'rgba(111 ,222 ,22 , 1)';
+var j = 1; // let rotationOption = new nidza.Osc(0, 90, 0.5, "oscMax");
 
-    for (var d = 0; d < _aiMic.CHANNELS; d++) {
-      e.fillRect(this.position.getX() + sSpace * d, this.position.getY(), sLineWidth, 1 + _aiMic.TESLA.SOUND['amp' + d]);
-      e.strokeStyle = 'rgba(' + 40 + _aiMic.TESLA.SOUND['amp' + d] + ' ,' + 11 + _aiMic.TESLA.SOUND['amp' + d] + ' ,' + 1 + _aiMic.TESLA.SOUND['amp' + d] + ' , 0.8)';
-      e.beginPath();
-      e.arc(500, this.position.getY(), 1 + _aiMic.TESLA.SOUND['amp' + d], 0, 2 * Math.PI);
-      e.stroke();
-      e.fillRect(this.position.getX() + sSpace * d, this.position.getY() + 90, sLineWidth, 1 - _aiMic.TESLA.SOUND['amp' + d]);
-    }
-
-    COUNT++;
-  },
-  position: {
-    x: 1,
-    y: 1
-  },
-  dimension: {
-    width: 1,
-    height: 1
-  }
-});
-let rotationOption = new nidza.Osc(0, 90, 0.5, "oscMax");
-window.myStarElement = myStarElement;
-addEventListener('click', () => {
-  new _aiMic.AudioInputMic();
-  myStarElement.activeDraw();
-});
-var invrementatorY = 0;
-/*
-// Construct it
-var attachAudioInputFile = function() {
-  // var TestMicrophone = new AudioInputMic(CHANNELS);
-  nidza.access.myCHAR1.testAudioFile = new AudioInputFile(CHANNELS, '../../data/uniqs/a.m4a');
-
-  var visualIncY = 0;
-  let mySamplerSeparator = nidza.access.myCHAR1.addCustom2dComponent({
-    id: "separator",
-    draw: function(e) {
-      var injector = nidza.access.myCHAR1.testAudioFile;
+document.getElementById('attacherAudioMic').addEventListener('click', () => {
+  var t = new _aiMic.AudioInputMic(_aiMic.CHANNELS);
+  let myStarElement = nidza.access.myCHAR1.addCustom2dComponent({
+    id: "CUSTOM",
+    radius: 10,
+    draw: function (e) {
+      // console.log("CUSTOM DRAW", TESLA.SOUND)
       if (!e) return;
-      var bar_pos = 0, bar_width = 0, bar_height = 0;
-      // console.log("CUSTOM DRAW -> ", injector)
-      // console.log("CUSTOM DRAW e  -> ", e)
-      var fbc_array = new Uint8Array(injector.analyser.frequencyBinCount);
-      var bar_count = window.innerWidth * 0.3;
-      injector.analyser.getByteFrequencyData(fbc_array);
+      e.fillStyle = 'rgba(111 ,222 ,22 , 1)';
 
-      // e.clearRect(0, 0, window.innerWidth, window.innerHeight * 5);
-      e.fillStyle = "#ffffff";
-      for (var i = 0; i < bar_count; i++) {
-        bar_pos = i * 4;
-        bar_width = 1;
-        bar_height = -(fbc_array[i] / 2);
-        e.fillRect(bar_pos, visualIncY + 50, bar_width, bar_height);
+      for (var d = 0; d < _aiMic.CHANNELS; d++) {
+        e.fillRect(this.position.getX() + sSpace * d, this.position.getY(), sLineWidth, 1 + _aiMic.TESLA.SOUND['amp' + d]);
+        e.strokeStyle = 'rgba(' + 40 + _aiMic.TESLA.SOUND['amp' + d] + ' ,' + 11 + _aiMic.TESLA.SOUND['amp' + d] + ' ,' + 1 + _aiMic.TESLA.SOUND['amp' + d] + ' , 0.8)';
+        e.beginPath();
+        e.arc(500, this.position.getY(), 1 + _aiMic.TESLA.SOUND['amp' + d], 0, 2 * Math.PI);
+        e.stroke();
+        e.fillRect(this.position.getX() + sSpace * d, this.position.getY() + 90, sLineWidth, 1 - _aiMic.TESLA.SOUND['amp' + d]);
       }
 
-      // console.log('LOW DETECT LIMIT', bar_height);
-      if (bar_height != 0) {
-        visualIncY = visualIncY + 200;
-      }
+      COUNT++;
     },
     position: {
       x: 1,
-      y: 30
+      y: 1
     },
     dimension: {
       width: 1,
       height: 1
     }
   });
-  window.mySamplerSeparator = mySamplerSeparator;
+  window.myStarElement = myStarElement;
+  myStarElement.activeDraw();
+});
 
-  mySamplerSeparator.activeDraw();
-}
-// First user request
-//addEventListener('click', attachAudioInputFile);
-
-document.getElementById('attacherAudioFile').
-  addEventListener('click', attachAudioInputFile);
-*/
-
-},{"../js/ai-audio":1,"../js/ai-mic":2,"../node_modules/nidza/index":3}]},{},[21]);
+},{"../js/ai-mic":1,"../node_modules/nidza/index":2}]},{},[20]);

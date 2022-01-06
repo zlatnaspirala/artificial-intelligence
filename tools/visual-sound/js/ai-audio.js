@@ -14,7 +14,7 @@ export var AudioInputFile = function(channels, srcPath) {
   // Handle style
   var controllerDom = document.getElementById('controller');
   var audioHolder = document.createElement('div');
-  audioHolder.setAttribute('style', 'width:100%;border:solid 1px red;display:flex;');
+  audioHolder.setAttribute('style', 'width:100%;display:flex;');
   // Create audio
   var audio = new Audio();
   audio.src = srcPath;
@@ -23,7 +23,7 @@ export var AudioInputFile = function(channels, srcPath) {
   audio.autoplay = true;
   audioHolder.append(audio);
   var descTitle = document.createElement("div");
-  descTitle.innerHTML = `Current file: ` + srcPath + `.`;
+  // descTitle.innerHTML = `Current file: ` + srcPath + `.`;
   controllerDom.append(descTitle);
   controllerDom.append(audioHolder);
   this.audio = audio;
