@@ -138,9 +138,9 @@ Object.defineProperty(exports, "Nidza", {
 });
 exports.Utility = void 0;
 
-var _nidza = require("./src/nidza");
+var _nidza = require("./src/nidza.js");
 
-var Utility = _interopRequireWildcard(require("./src/lib/utility"));
+var Utility = _interopRequireWildcard(require("./src/lib/utility.js"));
 
 exports.Utility = Utility;
 
@@ -148,7 +148,7 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-},{"./src/lib/utility":18,"./src/nidza":19}],3:[function(require,module,exports){
+},{"./src/lib/utility.js":18,"./src/nidza.js":19}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -539,11 +539,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Nidza3dIdentity = void 0;
 
-var _utility = require("./utility");
+var _utility = require("./utility.js");
 
-var _shaderComponent = require("./shader-component");
+var _shaderComponent = require("./shader-component.js");
 
-var _shaderComponentCustom = require("./shader-component-custom");
+var _shaderComponentCustom = require("./shader-component-custom.js");
 
 class Nidza3dIdentity {
   constructor(arg) {
@@ -679,7 +679,7 @@ class Nidza3dIdentity {
 
 exports.Nidza3dIdentity = Nidza3dIdentity;
 
-},{"./shader-component":15,"./shader-component-custom":14,"./utility":18}],9:[function(require,module,exports){
+},{"./shader-component-custom.js":14,"./shader-component.js":15,"./utility.js":18}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -687,13 +687,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaIdentity = void 0;
 
-var _textComponent = require("./text-component");
+var _textComponent = require("./text-component.js");
 
-var _starComponent = require("./star-component");
+var _starComponent = require("./star-component.js");
 
-var _matrixComponent = require("./matrix-component");
+var _matrixComponent = require("./matrix-component.js");
 
-var _custom2dComponent = require("./custom2d-component");
+var _custom2dComponent = require("./custom2d-component.js");
 
 var _utility = require("./utility");
 
@@ -876,7 +876,7 @@ class NidzaIdentity {
 
 exports.NidzaIdentity = NidzaIdentity;
 
-},{"./custom2d-component":6,"./matrix-component":10,"./star-component":16,"./text-component":17,"./utility":18}],10:[function(require,module,exports){
+},{"./custom2d-component.js":6,"./matrix-component.js":10,"./star-component.js":16,"./text-component.js":17,"./utility":18}],10:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

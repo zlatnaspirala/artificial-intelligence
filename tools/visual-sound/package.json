@@ -15,7 +15,7 @@
   "author": "Nikola Lukic",
   "license": "ISC",
   "dependencies": {
-    "nidza": "^1.2.18",
+    "nidza": "^1.2.19",
     "browser-resolve": "^2.0.0"
   },
   "devDependencies": {
