@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <link rel="manifest" href="manifest.web" />
-    <title>Created by Nikola Lukic</title>
+    <title>Own AI Created by Nikola Lukic</title>
     <meta name="description" content="The benefits of this project is offering an overview of the entire application logic, easy native implementations (hybrid app), object structural. " />
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="apple-touch-icon" href="imgs/icons/512.png" />
@@ -15,29 +15,18 @@
     <link rel="icon" type="image/png" sizes="192x192" href="imgs/icons/android-icon.png" />
     <link rel="icon" href="imgs/icons/favicon.ico" type="image/x-icon" />
     <meta name="msapplication-TileImage" content="imgs/icons/ms-icon.png" />
-    <link rel="stylesheet" type="text/css" defer href="./style/styles.css" />
-    <!--script defer src="./js/" ></script-->
   </head>
 <body>
   <div class="prodcWraper" id="prodcWraper">
     <div class="prodcSub">
       <p>AI Tool visual-sound</p>
-      <button id="showAudioFile">Test file A</button>
-      <button id="showAudioMic">Test microphone</button>
-    </div>
-    <div class="prodcFrame">
-      <iframe style="width:100%;height:100%" id="currentTool" src="home.html" iframborder="0"></iframe>
+      <span>Test file A</span>
+      <span>Test microphone</span>
+      <a href="https://github.com/zlatnaspirala/artificial-intelligence">Source code</a>
     </div>
   </div>
   <script>
-    document.getElementById('showAudioFile').addEventListener('click', showAudioFile)
-    document.getElementById('showAudioMic').addEventListener('click', showAudioMic)
-    function showAudioFile() {
-      document.getElementById('currentTool').src = "frame/audio-file.html";
-    }
-    function showAudioMic() {
-      document.getElementById('currentTool').src = "frame/audio-mic.html";
-    }
+
   </script>
 </body>
 </html>
