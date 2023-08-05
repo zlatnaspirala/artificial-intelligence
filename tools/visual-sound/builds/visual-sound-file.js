@@ -2494,7 +2494,7 @@ exports.Nidza = Nidza;
 },{"./lib/identity-3d.js":9,"./lib/identity.js":10,"./lib/operations.js":12}],21:[function(require,module,exports){
 "use strict";
 
-var _index = require("../node_modules/nidza/index");
+var _index = require("../node_modules/nidza/index.js");
 
 var _aiMic = require("../js/ai-mic.js");
 
@@ -2601,4 +2601,4 @@ document.getElementById('attacherAudioFileB').addEventListener('click', () => {
   sample1Fon('b');
 });
 
-},{"../js/ai-audio":1,"../js/ai-mic.js":2,"../node_modules/nidza/index":3}]},{},[21]);
+},{"../js/ai-audio":1,"../js/ai-mic.js":2,"../node_modules/nidza/index.js":3}]},{},[21]);
