@@ -2446,12 +2446,12 @@ exports.Nidza = Nidza;
 },{"./lib/identity":9,"./lib/identity-3d":8,"./lib/operations":11}],20:[function(require,module,exports){
 "use strict";
 
-var _index = require("../node_modules/nidza/index");
+var _nidza = require("nidza");
 
-var _aiMic = require("../js/ai-mic");
+var _aiMic = require("../js/ai-mic.js");
 
-// import { Nidza } from "nidza";
-var nidza = new _index.Nidza();
+// import {Nidza, Utility} from "../node_modules/nidza/index";
+var nidza = new _nidza.Nidza();
 let AISound = {
   id: "myCHAR1",
   size: {
@@ -2493,8 +2493,8 @@ document.getElementById('attacherAudioMic').addEventListener('click', () => {
       COUNT++;
     },
     position: {
-      x: 1,
-      y: 1
+      x: 25,
+      y: 25
     },
     dimension: {
       width: 1,
@@ -2505,4 +2505,4 @@ document.getElementById('attacherAudioMic').addEventListener('click', () => {
   myStarElement.activeDraw();
 });
 
-},{"../js/ai-mic":1,"../node_modules/nidza/index":2}]},{},[20]);
+},{"../js/ai-mic.js":1,"nidza":2}]},{},[20]);
