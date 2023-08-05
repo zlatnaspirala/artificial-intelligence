@@ -1,7 +1,7 @@
 
 // import { Nidza } from "nidza";
 import {Nidza, Utility} from "../node_modules/nidza/index";
-import { TESLA, CHANNELS, AudioInputMic } from "../js/ai-mic";
+import { TESLA, CHANNELS, AudioInputMic } from "../js/ai-mic.js";
 import {AudioInputFile} from "../js/ai-audio";
 
 var nidza = new Nidza();
