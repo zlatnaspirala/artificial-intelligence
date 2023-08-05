@@ -2446,7 +2446,7 @@ exports.Nidza = Nidza;
 },{"./lib/identity":9,"./lib/identity-3d":8,"./lib/operations":11}],20:[function(require,module,exports){
 "use strict";
 
-var _index = require("./../node_modules/nidza/index.js");
+var _index = require("../node_modules/nidza/index.js");
 
 var _aiMic = require("../js/ai-mic.js");
 
@@ -2505,4 +2505,4 @@ document.getElementById('attacherAudioMic').addEventListener('click', () => {
   myStarElement.activeDraw();
 });
 
-},{"../js/ai-mic.js":1,"./../node_modules/nidza/index.js":2}]},{},[20]);
+},{"../js/ai-mic.js":1,"../node_modules/nidza/index.js":2}]},{},[20]);
