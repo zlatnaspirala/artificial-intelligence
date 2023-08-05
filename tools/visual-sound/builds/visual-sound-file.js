@@ -206,9 +206,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaElement = void 0;
 
-var _position = require("./position");
+var _position = require("./position.js");
 
-var _dimension = require("./dimension");
+var _dimension = require("./dimension.js");
 
 class NidzaElement {
   constructor(arg) {
@@ -222,7 +222,7 @@ class NidzaElement {
 
 exports.NidzaElement = NidzaElement;
 
-},{"./dimension":8,"./position":13}],5:[function(require,module,exports){
+},{"./dimension.js":8,"./position.js":13}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -396,11 +396,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaCustom2dComponent = void 0;
 
-var _baseComponent = require("./base-component");
+var _baseComponent = require("./base-component.js");
 
-var _operations = require("./operations");
+var _operations = require("./operations.js");
 
-var _rotation = require("./rotation");
+var _rotation = require("./rotation.js");
 
 class NidzaCustom2dComponent extends _baseComponent.NidzaElement {
   constructor(arg) {
@@ -450,7 +450,7 @@ class NidzaCustom2dComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaCustom2dComponent = NidzaCustom2dComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],8:[function(require,module,exports){
+},{"./base-component.js":4,"./operations.js":12,"./rotation.js":14}],8:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -458,7 +458,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Dimension = void 0;
 
-var _baseReferent = require("./base-referent");
+var _baseReferent = require("./base-referent.js");
 
 class Dimension {
   constructor(curentWidth, curentHeight) {
@@ -581,7 +581,7 @@ class Dimension {
 
 exports.Dimension = Dimension;
 
-},{"./base-referent":5}],9:[function(require,module,exports){
+},{"./base-referent.js":5}],9:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -703,10 +703,9 @@ class Nidza3dIdentity {
       } else {
         this.uRegister.splice(loc, 1);
 
-        if (this.uRegister.length == 0) {
+        if (this.uRegister.length == 0 && this.updater != null) {
           clearInterval(this.updater);
-          this.updater = null;
-          console.info("There is no registred active elements -> deactivate updater.");
+          this.updater = null; // console.info("There is no registred active elements -> deactivate updater.");
         }
       }
     }
@@ -883,8 +882,7 @@ class NidzaIdentity {
 
         if (this.uRegister.length == 0) {
           clearInterval(this.updater);
-          this.updater = null;
-          console.info("There is no registred active elements -> deactivate updater.");
+          this.updater = null; // console.info("There is no registred active elements -> deactivate updater.");
         }
       }
     }
@@ -936,13 +934,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaMatrixComponent = void 0;
 
-var _baseComponent = require("./base-component");
+var _baseComponent = require("./base-component.js");
 
-var _operations = require("./operations");
+var _operations = require("./operations.js");
 
-var _utility = require("./utility");
+var _utility = require("./utility.js");
 
-var _rotation = require("./rotation");
+var _rotation = require("./rotation.js");
 
 class NidzaMatrixComponent extends _baseComponent.NidzaElement {
   constructor(arg) {
@@ -1199,7 +1197,7 @@ class NidzaMatrixComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaMatrixComponent = NidzaMatrixComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14,"./utility":19}],12:[function(require,module,exports){
+},{"./base-component.js":4,"./operations.js":12,"./rotation.js":14,"./utility.js":19}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1215,7 +1213,7 @@ exports.drawStarRotation = drawStarRotation;
 exports.drawWithBorder = drawWithBorder;
 exports.toRad = toRad;
 
-var _utility = require("./utility");
+var _utility = require("./utility.js");
 
 /**
  * @description Diffrent variant of math and
@@ -1494,7 +1492,7 @@ function drawStarRotation() {
   this.ctx.restore();
 }
 
-},{"./utility":19}],13:[function(require,module,exports){
+},{"./utility.js":19}],13:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1502,7 +1500,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Position = void 0;
 
-var _baseReferent = require("./base-referent");
+var _baseReferent = require("./base-referent.js");
 
 class Position {
   constructor(curentX, curentY) {
@@ -1627,7 +1625,7 @@ class Position {
 
 exports.Position = Position;
 
-},{"./base-referent":5}],14:[function(require,module,exports){
+},{"./base-referent.js":5}],14:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1635,7 +1633,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Rotator = void 0;
 
-var _operations = require("./operations");
+var _operations = require("./operations.js");
 
 class Rotator {
   constructor(eleId, identityId) {
@@ -1720,7 +1718,7 @@ class Rotator {
 
 exports.Rotator = Rotator;
 
-},{"./operations":12}],15:[function(require,module,exports){
+},{"./operations.js":12}],15:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1728,7 +1726,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ShaderComponentCustom = void 0;
 
-var _baseShaderComponent = require("./base-shader-component");
+var _baseShaderComponent = require("./base-shader-component.js");
 
 class ShaderComponentCustom extends _baseShaderComponent.BaseShader {
   constructor(arg) {
@@ -1864,7 +1862,7 @@ class ShaderComponentCustom extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponentCustom = ShaderComponentCustom;
 
-},{"./base-shader-component":6}],16:[function(require,module,exports){
+},{"./base-shader-component.js":6}],16:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1872,9 +1870,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ShaderComponent = void 0;
 
-var _baseShaderComponent = require("./base-shader-component");
+var _baseShaderComponent = require("./base-shader-component.js");
 
-var _operations = require("./operations");
+var _operations = require("./operations.js");
 
 class ShaderComponent extends _baseShaderComponent.BaseShader {
   constructor(arg) {
@@ -2059,7 +2057,7 @@ class ShaderComponent extends _baseShaderComponent.BaseShader {
 
 exports.ShaderComponent = ShaderComponent;
 
-},{"./base-shader-component":6,"./operations":12}],17:[function(require,module,exports){
+},{"./base-shader-component.js":6,"./operations.js":12}],17:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2067,7 +2065,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaStarComponent = void 0;
 
-var _baseComponent = require("./base-component");
+var _baseComponent = require("./base-component.js");
 
 var _operations = require("./operations");
 
@@ -2126,7 +2124,7 @@ class NidzaStarComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaStarComponent = NidzaStarComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],18:[function(require,module,exports){
+},{"./base-component.js":4,"./operations":12,"./rotation":14}],18:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2134,11 +2132,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.NidzaTextComponent = void 0;
 
-var _baseComponent = require("./base-component");
+var _baseComponent = require("./base-component.js");
 
-var _operations = require("./operations");
+var _operations = require("./operations.js");
 
-var _rotation = require("./rotation");
+var _rotation = require("./rotation.js");
 
 class NidzaTextComponent extends _baseComponent.NidzaElement {
   constructor(arg) {
@@ -2263,7 +2261,7 @@ class NidzaTextComponent extends _baseComponent.NidzaElement {
 
 exports.NidzaTextComponent = NidzaTextComponent;
 
-},{"./base-component":4,"./operations":12,"./rotation":14}],19:[function(require,module,exports){
+},{"./base-component.js":4,"./operations.js":12,"./rotation.js":14}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2401,11 +2399,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Nidza = void 0;
 
-var _identity = require("./lib/identity");
+var _identity = require("./lib/identity.js");
 
-var _identity3d = require("./lib/identity-3d");
+var _identity3d = require("./lib/identity-3d.js");
 
-var _operations = require("./lib/operations");
+var _operations = require("./lib/operations.js");
 
 class Nidza {
   constructor() {
@@ -2493,7 +2491,7 @@ class Nidza {
 
 exports.Nidza = Nidza;
 
-},{"./lib/identity":10,"./lib/identity-3d":9,"./lib/operations":12}],21:[function(require,module,exports){
+},{"./lib/identity-3d.js":9,"./lib/identity.js":10,"./lib/operations.js":12}],21:[function(require,module,exports){
 "use strict";
 
 var _index = require("../node_modules/nidza/index");
