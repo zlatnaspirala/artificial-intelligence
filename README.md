@@ -2,6 +2,8 @@
 ## Make uniq [phonetic] comparation algorithm to make possible `recognition of spoken words`
 ### Write as you speak and read as it is written.  — Vuk Stefanović Karadžić 
 
+## Live demo:
+## https://ai.maximumroulette.com/
 
 Serbian language is perfect for computer science i will try to proof this fact in this project.
 Possible usage of Finnish and Sri Lanka [phonetic].
@@ -42,4 +44,4 @@ I will try with latin variant of cirilic to better fit.
 ### Whole code is covered by `GPL-3.0 License`
 
  - It means if you done some changes you need to publish your modification.
- - If there is no source changes than you no need to publish `artificial-intelligence`.
+ - If there is no source changes than you no need to publish `artificial-intelligence` for simple usage.
