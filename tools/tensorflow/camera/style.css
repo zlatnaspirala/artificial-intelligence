@@ -26,7 +26,8 @@
  body {
   font-family: helvetica, arial, sans-serif;
   margin: 2em;
-  color: #3D3D3D;
+  color: #c9c9c9;
+	background-color: #3D3D3D;
 }
 
 h1 {
@@ -80,7 +81,7 @@ header, footer {
 .videoView p, .classifyOnClick p {
   position: absolute;
   padding: 5px;
-  background-color: rgba(255, 111, 0, 0.85);
+  background-color: rgba(88, 88, 88, 0.85);
   color: #FFF;
   border: 1px dashed rgba(255, 255, 255, 0.7);
   z-index: 2;
