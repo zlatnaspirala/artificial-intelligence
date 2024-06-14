@@ -101,7 +101,7 @@ var attachAudioInputFile = function(spath) {
 
 // A Fonet
 function sample1Fon(fon) {
-  attachAudioInputFile('../../../data/uniqs/' + fon + '.m4a');
+  attachAudioInputFile('data/uniqs/' + fon + '.m4a');
 }
 
 document.getElementById('attacherAudioFileA').

@@ -2498,7 +2498,7 @@ var _index = require("../node_modules/nidza/index.js");
 
 var _aiMic = require("../js/ai-mic.js");
 
-var _aiAudio = require("../js/ai-audio");
+var _aiAudio = require("../js/ai-audio.js");
 
 // import { Nidza } from "nidza";
 var nidza = new _index.Nidza();
@@ -2591,7 +2591,7 @@ var attachAudioInputFile = function (spath) {
 
 
 function sample1Fon(fon) {
-  attachAudioInputFile('../../../data/uniqs/' + fon + '.m4a');
+  attachAudioInputFile('data/uniqs/' + fon + '.m4a');
 }
 
 document.getElementById('attacherAudioFileA').addEventListener('click', () => {
@@ -2601,4 +2601,4 @@ document.getElementById('attacherAudioFileB').addEventListener('click', () => {
   sample1Fon('b');
 });
 
-},{"../js/ai-audio":1,"../js/ai-mic.js":2,"../node_modules/nidza/index.js":3}]},{},[21]);
+},{"../js/ai-audio.js":1,"../js/ai-mic.js":2,"../node_modules/nidza/index.js":3}]},{},[21]);

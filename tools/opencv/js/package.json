@@ -1,11 +1,9 @@
 {
-  "name": "test",
+  "name": "ai-nidza-opencvjs",
   "version": "1.0.0",
   "description": "",
   "main": "test.js",
-  "dependencies": {
-    "opencv-starter": "^1.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

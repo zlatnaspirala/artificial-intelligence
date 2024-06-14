@@ -1,9 +1,10 @@
-import { cvjs } from "./node_modules/opencv-starter"
+import {asyncLoad} from "./libs/helper"
 
-exports.test = function(){
-
-  var test2 = cvjs.cvjs(function(){
-   console.log("works")
-  })
-
+export var test3 = () => {
+	// asyncLoad("", () => {
+        // asyncLoad("./libs/opencv-4.10.0.js", () => {
+					console.log('test !!!4!!')
+				// })
+  // })
 }
+test3()
