@@ -2500,7 +2500,6 @@ var _aiMic = require("../js/ai-mic.js");
 
 var _aiAudio = require("../js/ai-audio.js");
 
-// import { Nidza } from "nidza";
 var nidza = new _index.Nidza();
 let AISound = {
   id: "experimental1",
@@ -2591,7 +2590,7 @@ var attachAudioInputFile = function (spath) {
 
 
 function sample1Fon(fon) {
-  attachAudioInputFile('data/uniqs/' + fon + '.m4a');
+  attachAudioInputFile('../data/uniqs/' + fon + '.m4a');
 }
 
 document.getElementById('attacherAudioFileA').addEventListener('click', () => {

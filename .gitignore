@@ -1,3 +1,4 @@
 
 tools/visual-sound/node_modules
 tools/opencv/js/node_modules/**
+tools/motionMarkers/.svn/**
