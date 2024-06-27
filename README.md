@@ -38,6 +38,10 @@ I will try with latin variant of cirilic to better fit.
  - Default 460 draw samples.
 
 
+# RI
+## Get Real Intelligence
+## Get data from `random` map...
+
 
 ### Welcome to collaborate on this project.
 
